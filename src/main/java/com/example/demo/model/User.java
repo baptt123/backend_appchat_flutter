@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public class User {
     @Id
     //gán id tự động tăng
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String password;
