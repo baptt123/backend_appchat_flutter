@@ -1,12 +1,7 @@
 package com.example.demo.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.lang.annotation.Documented;
-@Entity
-@Document("message")
+@Document(collection = "message")
 public class Message {
     @Id
     private int id;
@@ -16,6 +11,8 @@ public class Message {
     }
 
     public Message(int id, String message) {
+        this.id = id;
+        this.message = message;
     }
 
     public int getId() {

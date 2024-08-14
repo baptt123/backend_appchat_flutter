@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MessageRepository extends MongoRepository<Message, Integer> {
-   @Query("")
-    List<Message> findAll();
+    @Override
+     List<Message> findAll();
 }
