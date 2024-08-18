@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="post")
 public class Post {
@@ -13,7 +15,8 @@ public class Post {
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
     private User user;
-
+    @OneToMany
+    List<Comment> comments;
     public Post() {
     }
 
