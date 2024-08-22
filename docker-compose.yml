@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  api-service:
+    container_name: api-spring-boot-starter-container
+      image: api-spring-boot-starter
+      ports:
+        - "8081:80"
+        networks:
+          - backend
+
+networks:
+  backend:
+    driver: bridge
