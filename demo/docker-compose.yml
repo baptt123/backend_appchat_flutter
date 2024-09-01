@@ -1,14 +1,39 @@
 version: "3.9"
-
 services:
-  api-service:
-    container_name: api-container-springboot-starter
-    image: api-service-springboot
+  mysql-db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    restart: always
     ports:
-      - '80:80'
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+  mongo-db:
+    image: mongodb/mongodb-community-server:latest
+    restart: always
+
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - '27017:27017'
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=tan
+      
+    - MONGO_INITDB_ROOT_PASSWORD=123
+  api-service:
+    container_name: springboot-web
+    image: springboot
+    ports:
+      - '80:8080'
     networks:
       - backend
-
+    depends_on:
+      - mysql-db
+      - mongo-db
 networks:
   backend:
     driver: bridge
+volumes:
+  db: { }
+  mongodb: { }
