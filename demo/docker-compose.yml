@@ -1,7 +1,8 @@
 version: "3.9"
 services:
-  mysql-db:
+  mysql_db:
     image: mysql:latest
+    container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
     restart: always
@@ -9,31 +10,48 @@ services:
       - '3306:3306'
     volumes:
       - db:/var/lib/mysql
-  mongo-db:
-    image: mongodb/mongodb-community-server:latest
-    restart: always
+    networks:
+      - backend
 
-    volumes:
-      - mongodb:/data/db
+  mongo_db:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongo_db
+    restart: always
     ports:
       - '27017:27017'
+    volumes:
+      - mongodb:/data/db
     environment:
-    - MONGO_INITDB_ROOT_USERNAME=tan
-      
-    - MONGO_INITDB_ROOT_PASSWORD=123
+      - MONGO_INITDB_ROOT_USERNAME=tan
+      - MONGO_INITDB_ROOT_PASSWORD=123
+      - MONGO_INITDB_DATABASE=back_end_app_chat
+    networks:
+      - backend
+
   api-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: springboot-web
-    image: springboot
+    image: spring
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/app_chat
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATA_MONGODB_HOST: mongo_db
+      SPRING_DATA_MONGODB_PORT: 27017
     ports:
-      - '80:8080'
+      - '8080:8080'
     networks:
       - backend
     depends_on:
-      - mysql-db
-      - mongo-db
+      - mysql_db
+      - mongo_db
+
 networks:
   backend:
     driver: bridge
+
 volumes:
-  db: { }
-  mongodb: { }
+  db: {}
+  mongodb: {}
