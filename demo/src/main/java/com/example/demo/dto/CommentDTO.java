@@ -1,4 +1,7 @@
 package com.example.demo.dto;
 
-public class CommentDTO {
+import java.io.Serializable;
+
+public class CommentDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 }

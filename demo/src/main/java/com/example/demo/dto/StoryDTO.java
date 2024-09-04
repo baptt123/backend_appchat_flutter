@@ -1,4 +1,6 @@
 package com.example.demo.dto;
 
-public class StoryDTO {
+import java.io.Serializable;
+
+public class StoryDTO implements Serializable {
 }

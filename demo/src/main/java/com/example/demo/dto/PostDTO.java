@@ -1,23 +1,18 @@
 package com.example.demo.dto;
 
-public class PostDTO {
+import lombok.*;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class PostDTO implements Serializable {
+    private int id;
     private String title;
     private String content;
-    public PostDTO() {}
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }

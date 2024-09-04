@@ -1,9 +1,14 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="post")
 public class Post {
@@ -16,39 +21,6 @@ public class Post {
     @JoinColumn(name="user_id",nullable = false)
     private User user;
     @OneToMany
-    List<Comment> comments;
-    public Post() {
-    }
+    private List<Comment> comments;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

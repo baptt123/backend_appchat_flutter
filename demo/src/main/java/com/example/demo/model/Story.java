@@ -7,11 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Story {
     private String contentBinary;
-
-    public static void main(String[] args) {
-        Story test=new Story();
-        Story story=builder().contentBinary(test.getContentBinary()).build();
-    }
 }
