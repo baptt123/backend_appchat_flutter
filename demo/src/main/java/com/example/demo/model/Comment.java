@@ -16,9 +16,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String comment;
-    @ManyToOne
-    @JoinColumn(name="post.id",nullable = false)
-    private Post post;
     @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name="comment.id",nullable = false)
     private ListComment listComment;
 }

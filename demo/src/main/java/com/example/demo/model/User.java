@@ -19,7 +19,7 @@ public class User {
     private int id;
     private String username;
     private String password;
-
+    private int post_id;
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 

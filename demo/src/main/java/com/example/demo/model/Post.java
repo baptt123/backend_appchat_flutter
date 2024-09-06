@@ -17,10 +17,10 @@ public class Post {
     private int id;
     private String title;
     private String content;
-    @ManyToOne
-    @JoinColumn(name="user_id",nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany
-    private List<Comment> comments;
+    @OneToOne(cascade = CascadeType.ALL,optional = false,mappedBy = "post")
+    private ListComment listComment;
 
 }

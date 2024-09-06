@@ -10,9 +10,9 @@ public class ListComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(orphanRemoval = false, cascade = CascadeType.ALL, mappedBy = "list_comment")
+    @OneToMany(orphanRemoval = false, cascade = CascadeType.ALL, mappedBy = "listComment")
     private List<Comment> comments;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 }
