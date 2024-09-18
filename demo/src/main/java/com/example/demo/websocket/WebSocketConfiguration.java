@@ -13,8 +13,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfiguration implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(getTextDataHandler(), "/api/getdata/sendtextmessage");
-        registry.addHandler(getBinaryDataHandler(), "/api/getdata/sendbinarymessage");
+        registry.addHandler(getTextDataHandler(), "/api/getdata/sendtextmessage?senderid=${sender_token}&receiptid={receipt_token}");
+        registry.addHandler(getBinaryDataHandler(), "/api/getdata/sendbinarymessage?senderid=${sender_token}&receiptid={receipt_token}");
     }
 
     @Bean
