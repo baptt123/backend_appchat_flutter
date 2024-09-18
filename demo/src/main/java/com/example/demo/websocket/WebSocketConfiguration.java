@@ -7,14 +7,15 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 @Configuration
 @EnableWebSocket
 public class WebSocketConfiguration implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(getTextDataHandler(), "/api/getdata/sendtextmessage?senderid=${sender_token}&receiptid={receipt_token}");
-        registry.addHandler(getBinaryDataHandler(), "/api/getdata/sendbinarymessage?senderid=${sender_token}&receiptid={receipt_token}");
+        registry.addHandler(getTextDataHandler(), "/api/getdata/sendtextmessage").addInterceptors(new HttpSessionHandshakeInterceptor());
+        registry.addHandler(getBinaryDataHandler(), "/api/getdata/sendbinarymessage");
     }
 
     @Bean
@@ -26,4 +27,5 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
     public BinaryDataHandler getBinaryDataHandler() {
         return new BinaryDataHandler();
     }
+
 }
