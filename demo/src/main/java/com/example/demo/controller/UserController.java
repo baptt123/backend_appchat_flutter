@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     JWTUtils jwtUtils;
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public boolean checkLogin(@RequestBody String username, String password, @CookieValue(value = "jwt", defaultValue = "not storing jwt") String cookie) throws Exception {
         User user = userRepository.findByUsername(username,password);
         UserDTO userDTO;
@@ -45,4 +45,5 @@ public class UserController {
 
         return true;
     }
+
 }

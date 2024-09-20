@@ -14,10 +14,12 @@ public class GroupController {
     private GroupRepository groupRepository;
     @Autowired
     private GroupService groupService;
+    //chức năng tìm kiếm nhóm theo tên
     @GetMapping("/getgroup")
     public Group getGroupByName(@RequestParam String name) {
         return groupRepository.findByName(name);
     }
+    //chức năng tạo nhóm
     @PostMapping("/insertgroup")
     public void insertGroup(@RequestBody Group group) {
         groupRepository.save(group);

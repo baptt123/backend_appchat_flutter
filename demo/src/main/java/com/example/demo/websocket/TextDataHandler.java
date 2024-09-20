@@ -17,6 +17,7 @@ public class TextDataHandler extends TextWebSocketHandler {
 
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+        //chức năng gửi tin nhắn
         session.getAttributes().get("senderid").toString();
         session.getAttributes().get("receiptid").toString();
         Message message1= (Message) message.getPayload();
