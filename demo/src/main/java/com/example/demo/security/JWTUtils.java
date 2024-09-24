@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,7 +14,7 @@ public class JWTUtils {
     private static String secret = "This_is_secret";
     private static long expiryDuration = 60 * 60;
 
-    public String generateJwt(User user) {
+    public String generateJwt(UserDTO userDTO) {
         //thời gian tồn tại của token
         long milliTime = System.currentTimeMillis();
         long expiryTime = milliTime + expiryDuration * 1000;
@@ -23,7 +24,8 @@ public class JWTUtils {
 
         // claims
         Claims claims = Jwts.claims()
-                .setIssuer(String.valueOf(user.getId()))
+                .setIssuer(String.valueOf(userDTO.getName()))
+                .setIssuer(String.valueOf(userDTO.getUsername())).setIssuer(String.valueOf(userDTO.getPassword()))
                 .setIssuedAt(issuedAt)
                 .setExpiration(expiryAt);
 
@@ -38,7 +40,7 @@ public class JWTUtils {
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
-
+//authorizaion là biến lưu trữ jwt khi client gửi xuống
     public Claims verify(String authorization) throws Exception {
 
         try {

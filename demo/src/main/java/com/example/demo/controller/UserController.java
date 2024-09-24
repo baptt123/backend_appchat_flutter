@@ -1,16 +1,20 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.PostDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.exception.JWTException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JWTUtils;
+import com.example.demo.service.UserService;
 import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/getdata/")
@@ -19,31 +23,39 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     JWTUtils jwtUtils;
+    @Autowired
+    UserService userService;
 
-    @GetMapping("/login")
-    public boolean checkLogin(@RequestBody String username, String password, @CookieValue(value = "jwt", defaultValue = "not storing jwt") String cookie) throws Exception {
-        User user = userRepository.findByUsername(username,password);
-        UserDTO userDTO;
-
-        if (user != null) {
-            userDTO = UserDTO.builder().username(user.getUsername()).password(user.getPassword()).build();
-            if (cookie.equals("not storing jwt")) {
-                String jwToken = jwtUtils.generateJwt(user);
-                Cookie jwtCookie = new Cookie("jwt", jwToken);
-            } else {
-                try {
-                    jwtUtils.generateJwt(user);
-                    jwtUtils.verify(cookie);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } else {
-            throw new JWTException();
-        }
-
-
-        return true;
+    @PostMapping("/login")
+    public ResponseEntity checkLogin(@RequestBody Map<String, Object> dataList) throws Exception {
+        return userService.checkLogin(dataList);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody User user) throws Exception {
+        Optional<String> otpName = Optional.of(user.getUsername());
+        Optional<String> otpUserName = Optional.of(user.getUsername());
+        Optional<String> otpPassword = Optional.of(user.getPassword());
+        Optional<String> otpEmail = Optional.of(user.getEmail());
+        Optional<Timestamp> otpBirthday = Optional.of(user.getBirthday());
+        if (otpName.isPresent() && userRepository.findNameByUsername(user.getUsername()) != null) {
+            if (otpUserName.isPresent() && userRepository.findUsernameByUsername(user.getUsername()) != null) {
+                if (otpPassword.isPresent() && user.getPassword().length() < 10) {
+                    if (otpEmail.isPresent()) {
+                        if (otpBirthday.isPresent()) {
+                            userRepository.save(user);
+                            return ResponseEntity.ok("Đã tạo tài khoản thành công");
+                        }
+                    }
+                }
+            }
+        }
+        return ResponseEntity.notFound().build();
+
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout() {
+        return ResponseEntity.ok().build();
+    }
 }
