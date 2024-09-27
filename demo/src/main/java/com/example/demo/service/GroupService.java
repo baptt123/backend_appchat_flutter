@@ -12,11 +12,11 @@ public class GroupService {
     private GroupRepository groupRepository;
 
     public void addGroup(Group group) {
-        if (group.getPosts() != null) {
-            for (Post post : group.getPosts()) {
-                post.setGroup(group);
-            }
-        }
+//        if (group.getPosts() != null) {
+//            for (Post post : group.getPosts()) {
+//                post.setGroup(group);
+//            }
+//        }
         groupRepository.save(group);
     }
 }

@@ -17,10 +17,10 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true, nullable = false,name = "name_group")
+    @Column(unique = true, nullable = false, name = "name_group")
     private String nameGroup;
     private int quantity;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "group")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "group")
     private List<Post> posts;
 
 }
