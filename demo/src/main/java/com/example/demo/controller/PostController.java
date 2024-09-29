@@ -26,6 +26,7 @@ public class PostController {
         }
         return dtos;
     }
+
     //chức năng thêm bài viết
     @PostMapping("/addpost")
     public String addPost(@RequestBody Post post) {
@@ -33,5 +34,8 @@ public class PostController {
         return "success";
     }
 
-
+    @PutMapping("/updatereact")
+    public void updatePost(@RequestBody Post post) {
+        postRepository.updatePost(post.getId());
+    }
 }

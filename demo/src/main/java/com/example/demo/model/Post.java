@@ -26,4 +26,5 @@ public class Post {
     @ManyToOne(optional = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
     private Group group;
+    private boolean reacted;
 }
