@@ -58,4 +58,10 @@ public class UserController {
     public ResponseEntity<String> logout() {
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/updateprofile")
+    public ResponseEntity<String> updateProfile(@RequestBody User user) throws Exception {
+        userRepository.saveAndFlush(user);
+        return ResponseEntity.ok("Success");
+    }
 }

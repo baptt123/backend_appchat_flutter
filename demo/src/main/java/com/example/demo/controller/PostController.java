@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.PostDTO;
+import com.example.demo.model.Comment;
 import com.example.demo.model.Post;
+import com.example.demo.model.RequestPostMapper;
+import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +18,8 @@ import java.util.List;
 public class PostController {
     @Autowired
     PostRepository postRepository;
-
+    @Autowired
+    CommentRepository commentRepository;
     @GetMapping("/getposts")
     //chức năng hiển thị danh sách bài viết
     public List<PostDTO> getPosts() {
@@ -37,5 +42,9 @@ public class PostController {
     @PutMapping("/updatereact")
     public void updatePost(@RequestBody Post post) {
         postRepository.updatePost(post.getId());
+    }
+    @PostMapping("/addcomment")
+    public void addComment(@RequestBody RequestPostMapper requestPostMapper) {
+        commentRepository.insertComment(requestPostMapper.getCommentDTO().getId(),requestPostMapper.getCommentDTO().getComment(),requestPostMapper.getPost().getId());
     }
 }
