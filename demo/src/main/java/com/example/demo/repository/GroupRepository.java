@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@EnableJpaRepositories
 public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "Select name_group from list_group where name_group=:name_group", nativeQuery = true)
     Group findByName(@Param("name_group") String name);

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@EnableMongoRepositories
 public interface MessageRepository extends MongoRepository<Message, Integer> {
     @Override
     List<Message> findAll();
