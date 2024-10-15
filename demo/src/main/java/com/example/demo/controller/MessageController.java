@@ -23,12 +23,5 @@ public class MessageController {
         return messageRepository.findAll();
     }
 
-//    @MessageMapping("/chat")//gửi dữ liệu từ client xuống server thông qua websocket
-//    @SendTo("/topic/message")//gửi dữ liệu từ server đến client qua websocket
-//    public Message sendMessage(@Payload Message message) { //Payload dùng để lấy dữ liệu được gửi từ client xuống server
-//        //hàm này của messageRepository dùng để lưu trữ dữ liệu xuống db
-//        messageRepository.save(message);
-//        //gửi dữ liệu dạng chuỗi thông qua object message
-//        return message;
-//    }
+
 }

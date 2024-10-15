@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Entity
-@Document(collection = "")
+@Document(collection = "user_mongo_db")
 @Getter
 @Setter
 @Builder
